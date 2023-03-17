@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart - Library</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+<body>
+<nav class="main-nav">
+    <a th:href="@{/}">Main Menu</a>
+    <a th:href="@{/login/}">Login</a>
+    <a th:href="@{/register/}">Register</a>
+    <a th:href="@{/book-manager/}">Manage Books</a>
+    <a th:href="@{/library/}">Borrow Books</a>
+    <a th:href="@{cartView}">Cart</a>
+</nav>
+<div class="app-area">
+    <table class="books-table">
+        <tr class="row header">
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Publication Year</th>
+            <th>Author</th>
+        </tr>
+        <tbody>
+        <tr th:if="${booksInCart.isEmpty()}">
+            <td colspan="5">Cart is empty</td>
+        </tr>
+        <tr th:each="b : ${booksInCart}">
+            <td th:text="${b.bookId}"/>
+            <td th:text="${b.title}"/>
+            <td th:text="${b.bookGenre.displayName}"/>
+            <td th:text="${b.publicationYear}"/>
+            <td th:text="${b.author}"/>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${!booksInCart.isEmpty()}">
+        <h3>Enter book ID to remove it from cart</h3>
+        <form th:if="${booksInCart}" th:action="@{removeFromCart}" method="post">
+            <label for="book-id">Book ID: </label>
+            <input type="number" th:name="book_id" id="book-id">
+            <input type="submit">
+        </form>
+    </div>
+    <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
+    <p th:if="${successMessage}" th:text="${successMessage}"/>
+    <div th:if="${!booksInCart.isEmpty()}">
+        <form th:if="${booksInCart}" th:action="@{confirmOrder}" method="post">
+            <button type="submit">Confirm order</button>
+        </form>
+    </div>
+    <h3 th:if="${orderMessage}" th:text="${orderMessage}"/>
+</div>
+</body>
+</html>

@@ -6,8 +6,16 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<nav class="main-nav">
+    <a th:href="@{/}">Main Menu</a>
+    <a th:href="@{/login/}">Login</a>
+    <a th:href="@{/register/}">Register</a>
+    <a th:href="@{/book-manager/}">Manage Books</a>
+    <a th:href="@{/library/}">Borrow Books</a>
+</nav>
+<div class="app-area">
     <table class="books-table">
-        <tr class = "row header">
+        <tr class="row header">
             <td>Book ID</td>
             <td>Title</td>
             <td>Genre</td>
@@ -17,9 +25,9 @@
             <td>Current Amount</td>
         </tr>
         <tbody>
-            <tr th:if="${books.isEmpty()}">
-                <td colspan="7">Library collection is empty</td>
-            </tr>
+        <tr th:if="${books.isEmpty()}">
+            <td colspan="7">Library collection is empty</td>
+        </tr>
         <tr th:each="b : ${books}">
             <td th:text="${b.bookId}"/>
             <td th:text="${b.title}"/>
@@ -43,5 +51,6 @@
         </form>
     </div>
     <h2 th:if="${successMessage}" th:text="${successMessage}"/>
+</div>
 </body>
 </html>

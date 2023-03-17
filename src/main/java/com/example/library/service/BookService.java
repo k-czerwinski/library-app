@@ -8,12 +8,10 @@ import com.sun.jdi.ObjectCollectedException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.rmi.NoSuchObjectException;
-
 @Service
 @Transactional
 public class BookService {
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;

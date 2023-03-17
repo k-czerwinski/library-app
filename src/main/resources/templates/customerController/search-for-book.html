@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search for Book - Library</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+<body>
+<nav class="main-nav">
+    <a th:href="@{/}">Main Menu</a>
+    <a th:href="@{/login/}">Login</a>
+    <a th:href="@{/register/}">Register</a>
+    <a th:href="@{/book-manager/}">Manage Books</a>
+    <a th:href="@{/library/}">Borrow Books</a>
+    <a th:href="@{cartView}">Cart</a>
+</nav>
+<div class="app-area">
+    <form th:action="@{searchForBook}" method="post">
+        <label for="book-title">Enter book title: </label>
+        <input type="text" th:name="title" id="book-title">
+        <input type="submit" value="Search">
+    </form>
+    <table th:if="${books}">
+        <tr class="row header">
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Publication Year</th>
+            <th>Author</th>
+        </tr>
+        <tr th:each="b : ${books}">
+            <td th:text="${b.bookId}"/>
+            <td th:text="${b.title}"/>
+            <td th:text="${b.bookGenre.displayName}"/>
+            <td th:text="${b.publicationYear}"/>
+            <td th:text="${b.author}"/>
+        </tr>
+    </table>
+    <p th:if="${notFoundMessage}" th:text="${notFoundMessage}"/>
+    <div th:if="${books}">
+        <h3>Enter book ID to add it from cart</h3>
+        <form th:action="@{addToCartFromSearchView}" method="post">
+            <label for="book-id">Book ID: </label>
+            <input type="number" th:name="book_id" id="book-id">
+            <input type="submit">
+        </form>
+    </div>
+    <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
+    <p th:if="${successMessage}" th:text="${successMessage}"/>
+</div>
+</body>
+</html>

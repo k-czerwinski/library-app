@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("book-manager")
 public class BookController {
-    private BookService bookService;
-    private BookRepository bookRepository;
+    private final BookService bookService;
+    private final BookRepository bookRepository;
 
     @Autowired
     public BookController(BookService bookService, BookRepository bookRepository) {
@@ -28,37 +28,36 @@ public class BookController {
     @RequestMapping("/")
     public String mainPage() {
 
-        return "index";
+        return "bookController/main-menu";
     }
 
     @RequestMapping("/addBookForm")
     public String addBookForm(Model model) {
         model.addAttribute("book", new Book());
-        return "add-book-form";
+        return "bookController/add-book-form";
     }
 
     @PostMapping("/addBook")
     public String addBook(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors())
-            return "add-book-form";
+        if (bindingResult.hasErrors()) return "bookController/add-book-form";
         try {
             bookService.saveBook(book);
         } catch (AlreadyExistException e) {
             model.addAttribute("message", "That book with already exist");
             model.addAttribute("changeAmount", "true");
-            return "add-book-form";
+            return "bookController/add-book-form";
         } catch (Exception e) {
             model.addAttribute("message", "Unknown error occurred, contact with system administrator");
-            return "add-book-form";
+            return "bookController/add-book-form";
         }
         model.addAttribute("message", "Book successfully added");
-        return "index";
+        return "bookController/add-book-form"; //will be developed: redirect to viewBooks and show bolded row with that book
     }
 
     @GetMapping("/setBookAmountForm")
     public String changeBookAmountMenu(Model model) {
         model.addAttribute("books", bookRepository.findAll());
-        return "set-book-amount";
+        return "bookController/set-book-amount";
     }
 
     @PostMapping("/setBookAmount")
@@ -73,9 +72,14 @@ public class BookController {
             model.addAttribute("errorIdMessage", "Could find book with given ID");
             errors = true;
         }
-        if (!errors)
-            model.addAttribute("successMessage", "Book amount changes succesfully");
+        if (!errors) model.addAttribute("successMessage", "Book amount changes successfully");
         model.addAttribute("books", bookRepository.findAll());
-        return "set-book-amount";
+        return "bookController/set-book-amount";
+    }
+
+    @GetMapping("/viewBooks")
+    public String viewBooks(Model model) {
+        model.addAttribute("books", bookRepository.findAll());
+        return "bookController/view-books";
     }
 }

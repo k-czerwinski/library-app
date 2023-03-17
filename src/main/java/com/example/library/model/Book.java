@@ -4,7 +4,6 @@ import com.example.library.model.enums.BookGenre;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-
 @Entity
 @Table(name = "books")
 @SecondaryTable(name = "books_collection", pkJoinColumns = @PrimaryKeyJoinColumn(name = "book_id"))
@@ -31,6 +30,10 @@ public class Book {
     @Min(0)
     private int currentBookAmount;
 
+    @Column(table = "books_collection", name = "total_amount")
+    @Min(0)
+    private int totalBookAmount;
+
     public int getTotalBookAmount() {
         return totalBookAmount;
     }
@@ -38,10 +41,6 @@ public class Book {
     public void setTotalBookAmount(int totalBookAmount) {
         this.totalBookAmount = totalBookAmount;
     }
-
-    @Column(table = "books_collection", name = "total_amount")
-    @Min(0)
-    private int totalBookAmount;
 
     public int getCurrentBookAmount() {
         return currentBookAmount;

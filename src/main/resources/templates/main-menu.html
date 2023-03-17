@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Menu - Library</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav class="main-nav">
+    <a th:href="@{/}">Main Menu</a>
+    <a th:href="@{/login}">Login</a>
+    <a th:href="@{/register}">Register</a>
+    <a th:href="@{/book-manager/}">Manage Books</a>
+    <a th:href="@{/library/}">Borrow Books</a>
+</nav>
+<div class="app-area">
+    <h1>Welcome in library</h1>
+    <a th:href="@{/login/}">
+        <button>Login</button>
+    </a>
+    <a th:href="@{/register/}">
+        <button>Register</button>
+    </a>
+    <form th:action="@{/book-manager/}">
+        <button>Book Manager</button>
+    </form>
+    <form th:action="@{/library/}">
+        <button>Borrow Books</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library - Set Books</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<nav class="main-nav">
+    <a th:href="@{/}">Main Menu</a>
+    <a th:href="@{/login}">Login</a>
+    <a th:href="@{/register}">Register</a>
+    <a th:href="@{/book-manager/}">Manage Books</a>
+    <a th:href="@{/library/}">Borrow Books</a>
+</nav>
+<div class="app-area">
+    <table class="books-table">
+        <tr class="row header">
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Publication Year</th>
+            <th>Author</th>
+            <th>Total Amount</th>
+            <th>Current Amount</th>
+        </tr>
+        <tbody>
+        <tr th:if="${books.isEmpty()}">
+            <td colspan="7">Library collection is empty</td>
+        </tr>
+        <tr th:each="b : ${books}">
+            <td th:text="${b.bookId}"/>
+            <td th:text="${b.title}"/>
+            <td th:text="${b.bookGenre.displayName}"/>
+            <td th:text="${b.publicationYear}"/>
+            <td th:text="${b.author}"/>
+            <td th:text="${b.totalBookAmount}"/>
+            <td th:text="${b.currentBookAmount}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

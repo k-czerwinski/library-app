@@ -1,6 +1,7 @@
 package com.example.library.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class Order {
     @Column(name = "order_id")
     private Long orderId;
 
+    @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDate orderDate;
     @OneToOne(cascade = CascadeType.ALL)
@@ -24,6 +26,19 @@ public class Order {
     private List<Book> booksBorrowed;
 
     public Order() {
+    }
+
+    public Order(User user, List<Book> booksBorrowed){
+        this.user = user;
+        this.booksBorrowed = booksBorrowed;
+    }
+
+    public List<Book> getBooksBorrowed() {
+        return booksBorrowed;
+    }
+
+    public void setBooksBorrowed(List<Book> booksBorrowed) {
+        this.booksBorrowed = booksBorrowed;
     }
 
     public Long getOrderId() {

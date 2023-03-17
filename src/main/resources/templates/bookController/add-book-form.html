@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book - Library</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav class="main-nav">
+    <a th:href="@{/}">Main Menu</a>
+    <a th:href="@{/login/}">Login</a>
+    <a th:href="@{/register/}">Register</a>
+    <a th:href="@{/book-manager/}">Manage Books</a>
+    <a th:href="@{/library/}">Borrow Books</a>
+</nav>
+<div class="app-area">
+    <form action="#" th:action="@{addBook}" th:object="${book}" method="post">
+        <div class="form-element">
+            <label for="name">Enter book title: </label>
+            <input type=text th:field="*{title}" id="name">
+            <p th:if="${#fields.hasErrors('title')}" class="errors">Title must be between 2 and 20 characters long</p>
+        </div>
+        <div class="form-element">
+            <label for="publicationYear">Publication year: </label>
+            <input type="number" th:field="*{publicationYear}" id="publicationYear">
+            <p th:if="${#fields.hasErrors('publicationYear')}" class="errors">Publication year must be greater than
+                1900,
+                and must be past or present</p>
+        </div>
+        <div class="form-element">
+            <label for="book-genre">Select book genre: </label>
+            <select th:field="*{bookGenre}" id="book-genre">
+                <option th:each="genre : ${T(com.example.library.model.enums.BookGenre).values()}"
+                        th:value="${genre}"
+                        th:text="${genre.displayName}"></option>
+            </select>
+        </div>
+        <div class="form-element">
+            <label for="author">Author of the book: </label>
+            <input type="text" th:field="*{author}" id="author">
+            <p th:if="${#fields.hasErrors('author')}" class="errors">Author of the book field must be between 2 and 40
+                characters long</p>
+        </div>
+        <div class="form-element">
+            <label for="book-quantity">Number of books</label>
+            <input type="number" th:field="*{totalBookAmount}" id="book-quantity">
+            <p th:if="${#fields.hasErrors('totalBookAmount')}" class="errors">Number of books cannot be negative</p>
+        </div>
+        <button>Add Book</button>
+    </form>
+    <div class="errors">
+        <h2 th:if="${message}" th:text="${message}"/>
+    </div>
+    <div th:if="${changeAmount}">
+        <h3>Do you want to change amount of books in library? Click button below.</h3>
+        <form action=# th:action="@{setBookAmountForm}">
+            <button>Set Amount</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
