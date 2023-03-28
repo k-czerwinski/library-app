@@ -1,7 +1,6 @@
 package com.example.library.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -22,7 +21,7 @@ public class Order {
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Book> booksBorrowed;
 
     public Order() {

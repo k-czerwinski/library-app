@@ -1,24 +1,11 @@
 package com.example.library.model;
 
-import com.example.library.model.enums.UserRole;
 import com.example.library.model.validation.ValidPassword;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long id;
-
-    @Enumerated
-    @Column(name = "role")
-    private UserRole userRole;
+public class UserDTO {
     @Size(min=2, max = 20)
     private String name;
     @Size(min=2, max = 30)
@@ -30,25 +17,7 @@ public class User {
 
     @ValidPassword
     private String password;
-
-    public User() {
-    }
-
-    public User(UserRole userRole, String name, String surname, String email, String password) {
-        this.userRole = userRole;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-    }
+    private String matchingPassword;
 
     public String getName() {
         return name;
@@ -80,5 +49,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
     }
 }
