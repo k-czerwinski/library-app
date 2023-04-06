@@ -1,10 +1,12 @@
 package com.example.library.controller;
 
 import com.example.library.model.Book;
+import com.example.library.model.User;
 import com.example.library.repository.BookRepository;
 import com.example.library.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -106,7 +108,9 @@ public class CustomerController {
 
     @PostMapping("/confirmOrder")
     public String confirmOrder(Model model) {
-        if (customerService.confirmOrder())
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+//        String email = "default@default.com";
+        if (customerService.confirmOrder(email))
             model.addAttribute("orderMessage", "Order confirmed. We wish you good reading.");
         else
             model.addAttribute("orderMessage", "We have removed from cart books which are unavailable. Check cart and click confirm order again.");

@@ -6,12 +6,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 <body>
 <nav class="main-nav">
-    <a th:href="@{/}">Main Menu</a>
-    <a th:href="@{/login/}">Login</a>
-    <a th:href="@{/register/}">Register</a>
-    <a th:href="@{/book-manager/}">Manage Books</a>
-    <a th:href="@{/library/}">Borrow Books</a>
-    <a th:href="@{cartView}">Cart</a>
+    <nav class="main-nav">
+        <div th:insert="~{fragments/header::customer-menu}"></div>
+    </nav>
 </nav>
 <div class="app-area">
     <form th:action="@{searchForBook}" method="post">
@@ -35,7 +32,7 @@
             <td th:text="${b.author}"/>
         </tr>
     </table>
-    <p th:if="${notFoundMessage}" th:text="${notFoundMessage}"/>
+    <p th:if="${notFoundMessage}" th:text="${notFoundMessage}" class="errors"/>
     <div th:if="${books}">
         <h3>Enter book ID to add it from cart</h3>
         <form th:action="@{addToCartFromSearchView}" method="post">

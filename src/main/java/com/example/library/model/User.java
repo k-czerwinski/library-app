@@ -1,12 +1,7 @@
 package com.example.library.model;
 
 import com.example.library.model.enums.UserRole;
-import com.example.library.model.validation.ValidPassword;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -19,16 +14,16 @@ public class User {
     @Enumerated
     @Column(name = "role")
     private UserRole userRole;
-    @Size(min=2, max = 20)
+//    @Size(min=2, max = 20)
     private String name;
-    @Size(min=2, max = 30)
+//    @Size(min=2, max = 30)
     private String surname;
 
-    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @NotEmpty(message = "Email cannot be empty")
+//    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+//    @NotEmpty(message = "Email cannot be empty")
     private String email;
 
-    @ValidPassword
+//    @ValidPassword
     private String password;
 
     public User() {

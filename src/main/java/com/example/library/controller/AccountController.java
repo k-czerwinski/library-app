@@ -2,9 +2,7 @@ package com.example.library.controller;
 
 import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.exceptions.PasswordsNotMatchingException;
-import com.example.library.model.User;
 import com.example.library.model.UserDTO;
-import com.example.library.model.enums.UserRole;
 import com.example.library.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("users")
 public class AccountController {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @Autowired
     public AccountController(AccountService accountService){
         this.accountService = accountService;
     }
 
-    @GetMapping("registerForm")
+    @GetMapping("/registerForm")
     public String displayRegisterForm(Model model){
         UserDTO user = new UserDTO();
         model.addAttribute("user", user);
@@ -50,9 +48,19 @@ public class AccountController {
         return "accountController/register-form";
     }
 
-    @GetMapping("loginForm")
+    @GetMapping("/login")
     public String singinForm(){
+        return "accountController/login";
+    }
 
-        return "accountController/singin-form";
+    @PostMapping("/loginWithError")
+    public String singInWithError(Model model){
+        model.addAttribute("errorMessage", "Username or password is incorrect");
+        return "accountController/login";
+    }
+
+    @GetMapping("/logoutPage")
+    public String logout(){
+        return "accountController/logout";
     }
 }

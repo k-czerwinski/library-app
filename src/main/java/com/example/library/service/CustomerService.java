@@ -3,13 +3,16 @@ package com.example.library.service;
 import com.example.library.model.Book;
 import com.example.library.model.Order;
 import com.example.library.model.User;
+import com.example.library.model.UserDTO;
 import com.example.library.model.enums.UserRole;
 import com.example.library.repository.BookRepository;
 import com.example.library.repository.OrderRepository;
+import com.example.library.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.desktop.SystemSleepEvent;
 import java.rmi.NoSuchObjectException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +22,15 @@ import java.util.List;
 public class CustomerService {
     private final BookRepository bookRepository;
     private final OrderRepository orderRepository;
+
+    private final UserRepository userRepository;
     private List<Book> cart = new ArrayList<Book>();
 
     @Autowired
-    public CustomerService(OrderRepository orderRepository, BookRepository bookRepository) {
+    public CustomerService(OrderRepository orderRepository, BookRepository bookRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
     }
 
     public void addToCart(Long bookId) throws NoSuchObjectException {
@@ -41,11 +47,12 @@ public class CustomerService {
             throw new NoSuchObjectException("There is no book with given ID in cart");
     }
 
-    public boolean confirmOrder() {
+    public boolean confirmOrder(String email) {
         List<Book> unavailableBooks = cart.stream().filter(book -> bookRepository.findById(book.getBookId()).get().getCurrentBookAmount() <= 0).toList();
+        if (!userRepository.existsByEmail(email))
+            return false;
         if (unavailableBooks.isEmpty()) {
-//            ultimately user will be saved as user which is currently signed in
-            User user = new User(UserRole.CUSTOMER, "AAAA","BBBB","CCCC","PASSWD");
+            User user = userRepository.findByEmail(email);
             Order order = new Order(user,cart);
             orderRepository.save(order);
             cart.forEach(book -> bookRepository.decrementBookAmountForBookWithId(book.getBookId()));

@@ -6,12 +6,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<nav class="main-nav">
-    <a th:href="@{/}">Main Menu</a>
-    <a th:href="@{/login/}">Login</a>
-    <a th:href="@{/register/}">Register</a>
-    <a th:href="@{/book-manager/}">Manage Books</a>
-    <a th:href="@{/library/}">Borrow Books</a>
+<nav clas="main-nav">
+    <div th:insert="~{fragments/header::admin-menu}"></div>
 </nav>
 <div class="app-area">
     <form action="#" th:action="@{addBook}" th:object="${book}" method="post">

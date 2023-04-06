@@ -7,18 +7,14 @@
 </head>
 <body>
 <nav class="main-nav">
-    <a th:href="@{/}">Main Menu</a>
-    <a th:href="@{/login}">Login</a>
-    <a th:href="@{/registerForm}">Register</a>
-    <a th:href="@{/book-manager/}">Manage Books</a>
-    <a th:href="@{/library/}">Borrow Books</a>
+    <div th:insert="~{fragments/header::non-signed-in-menu}"></div>
 </nav>
 <div class="app-area">
     <h1>Library App</h1>
-    <a th:href="@{/login/}">
+    <a th:href="@{/users/login}">
         <button>Login</button>
     </a>
-    <a th:href="@{/registerForm}">
+    <a th:href="@{/users/registerForm}">
         <button>Register</button>
     </a>
     <form th:action="@{/book-manager/}">
