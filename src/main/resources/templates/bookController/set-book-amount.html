@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library - Set Books</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav clas="main-nav">
+    <div th:insert="~{fragments/header::admin-menu}"></div>
+</nav>
+<div class="app-area">
+    <table class="books-table">
+        <tr class="row header">
+            <td>Book ID</td>
+            <td>Title</td>
+            <td>Genre</td>
+            <td>Publication Year</td>
+            <td>Author</td>
+            <td>Total Amount</td>
+            <td>Current Amount</td>
+        </tr>
+        <tbody>
+        <tr th:if="${books.isEmpty()}">
+            <td colspan="7">Library collection is empty</td>
+        </tr>
+        <tr th:each="b : ${books}">
+            <td th:text="${b.bookId}"/>
+            <td th:text="${b.title}"/>
+            <td th:text="${b.bookGenre.displayName}"/>
+            <td th:text="${b.publicationYear}"/>
+            <td th:text="${b.author}"/>
+            <td th:text="${b.totalBookAmount}"/>
+            <td th:text="${b.currentBookAmount}"/>
+        </tr>
+        </tbody>
+    </table>
+    <div class="set-amount-form">
+        <form action=# th:action="@{setBookAmount}" method="post">
+            <label for="book-id">Book ID:</label>
+            <input type="number" th:name="book_id" id="book-id">
+            <label for="book-amount">New total book amount: </label>
+            <input type="number" th:name="bookAmount" id="book-amount">
+            <p th:if="${errorValueMessage}" th:text="${errorValueMessage}" class="errors"/>
+            <p th:if="${errorIdMessage}" th:text="${errorIdMessage}" class="errors"/>
+            <button>Confirm</button>
+        </form>
+    </div>
+    <h2 th:if="${successMessage}" th:text="${successMessage}"/>
+</div>
+</body>
+</html>

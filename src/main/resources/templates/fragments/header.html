@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div th:fragment="customer-menu" class="nav-menu">
+        <a th:href="@{/library/}">Main Menu</a>
+        <a th:href="@{/library/viewBooks}">View books collection</a>
+        <a th:href="@{/library/searchForBookForm}">Search for a book</a>
+        <a th:href="@{/library/cartView}">Cart</a>
+        <a th:href="@{/users/logout}">Logout</a>
+    </div>
+    <div th:fragment="admin-menu" class="nav-menu">
+        <a th:href="@{/book-manager/}">Main Menu</a>
+        <a th:href="@{/book-manager/addBookForm}">Add books</a>
+        <a th:href="@{/book-manager/setBookAmountForm}">Set book amount</a>
+        <a th:href="@{/book-manager/viewBooks}">View books</a>
+        <a th:href="@{/users/logout}">Logout</a>
+    </div>
+    <div th:fragment="non-signed-in-menu" class="nav-menu">
+        <a th:href="@{/}">Main Menu</a>
+        <a th:href="@{/users/login}">Login</a>
+        <a th:href="@{/users/registerForm}">Register</a>
+        <a th:href="@{/library/}">Borrow Books</a>
+    </div>
+</body>
+</html>

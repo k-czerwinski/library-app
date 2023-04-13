@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Manager</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav clas="main-nav">
+    <div th:insert="~{fragments/header::admin-menu}"></div>
+</nav>
+<div clas="app-area">
+    <a th:href="@{addBookForm}">
+        <button>Add Book</button>
+    </a>
+    <a th:href="@{setBookAmountForm}">
+        <button>Set Book Amount</button>
+    </a>
+    <a th:href="@{viewBooks}">
+        <button>View Books</button>
+    </a>
+</div>
+</body>
+</html>

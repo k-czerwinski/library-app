@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Library</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav class="main-nav">
+    <div th:insert="~{fragments/header::non-signed-in-menu}"></div>
+</nav>
+<div class="app-area">
+    <form action="#" th:action="@{register}" th:object="${user}" method="post">
+        <div class="form-element">
+            <label for="name-field">Name: </label>
+            <input type=text th:field="*{name}" id="name-field">
+            <p th:if="${#fields.hasErrors('name')}" class="errors">Name must be between 2 and 20 characters long</p>
+        </div>
+        <div class="form-element">
+            <label for="surname-field">Surname: </label>
+            <input type="text" th:field="*{surname}" id="surname-field">
+            <p th:if="${#fields.hasErrors('surname')}" class="errors">Surname must be beetween 2 and 20 characters
+                long</p>
+        </div>
+        <div class="form-element">
+            <label for="email-field">Email: </label>
+            <input type="email" th:field="*{email}" id="email-field">
+            <p th:if="${#fields.hasErrors('email')}" class="errors">Incorrect email</p>
+        </div>
+        <div class="form-element">
+            <label for="password-field">Password: </label>
+            <input type="password" th:field="*{password}" id="password-field">
+            <ul class="text-danger" th:each="error: ${#fields.errors('password')}">
+                <li th:each="message : ${error.split(',')}">
+                    <p class="errors" th:text="${message}"></p>
+                </li>
+            </ul>
+        </div>
+        <div class="form-element">
+            <label for="matching-password-field">Repeat password</label>
+            <input type="password" th:field="*{matchingPassword}" id="matching-password-field">
+            <p th:if="matchingPasswordError" th:text="${matchingPasswordError}" class="errors"/>
+        </div>
+        <button>Add User</button>
+    </form>
+    <div class="errors">
+        <h2 th:if="${message}" th:text="${message}"/>
+    </div>
+</div>
+</body>
+</html>
