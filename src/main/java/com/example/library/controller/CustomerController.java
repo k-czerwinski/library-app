@@ -1,5 +1,6 @@
 package com.example.library.controller;
 
+import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.model.Book;
 import com.example.library.model.User;
 import com.example.library.repository.BookRepository;
@@ -109,12 +110,36 @@ public class CustomerController {
     @PostMapping("/confirmOrder")
     public String confirmOrder(Model model) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-//        String email = "default@default.com";
-        if (customerService.confirmOrder(email))
-            model.addAttribute("orderMessage", "Order confirmed. We wish you good reading.");
-        else
-            model.addAttribute("orderMessage", "We have removed from cart books which are unavailable. Check cart and click confirm order again.");
+        try{
+            if (customerService.confirmOrder(email))
+                model.addAttribute("orderMessage", "Order confirmed. We wish you good reading.");
+            else
+                model.addAttribute("orderMessage", "We have removed from cart books which are unavailable. Check cart and click confirm order again.");
+        }
+        catch (IllegalArgumentException e){
+            model.addAttribute("orderMessage", e.getMessage());
+        }
         model.addAttribute("booksInCart", customerService.getCart());
         return "/customerController/view-cart";
     }
+
+    @GetMapping("/returnBookForm")
+    public String returnBooksPage(Model model){
+        model.addAttribute("borrowedBooks", customerService.getBooksBorrowed());
+        return "/customerController/return-books";
+    }
+
+    @PostMapping("/returnBook")
+    public String returnBook(@RequestParam(value = "book_id", required = false, defaultValue = "0") Long bookId, Model model){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (customerService.removeFromBorrowedBooks(bookId,email)){
+            model.addAttribute("successMessage", "Book with given ID has been removed successfully");
+        }
+        else{
+            model.addAttribute("errorMessage", "Please try again with valid book ID");
+        }
+        model.addAttribute("borrowedBooks", customerService.getBooksBorrowed());
+        return "/customerController/return-books";
+    }
+
 }

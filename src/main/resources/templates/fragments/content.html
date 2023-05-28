@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table th:fragment="basic-book-table(books)">
+        <tr class="row header">
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Publication Year</th>
+            <th>Author</th>
+        </tr>
+        <tbody>
+        <tr th:each="b : ${books}">
+            <td th:text="${b.bookId}"/>
+            <td th:text="${b.title}"/>
+            <td th:text="${b.bookGenre.displayName}"/>
+            <td th:text="${b.publicationYear}"/>
+            <td th:text="${b.author}"/>
+        </tr>
+        </tbody>
+</table>
+</body>
+</html>

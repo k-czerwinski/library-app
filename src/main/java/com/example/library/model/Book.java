@@ -4,6 +4,8 @@ import com.example.library.model.enums.BookGenre;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "books")
 @SecondaryTable(name = "books_collection", pkJoinColumns = @PrimaryKeyJoinColumn(name = "book_id"))
@@ -91,5 +93,18 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return publicationYear == book.publicationYear && bookId.equals(book.bookId) && bookGenre == book.bookGenre && title.equals(book.title) && author.equals(book.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookId, bookGenre, title, publicationYear, author);
     }
 }

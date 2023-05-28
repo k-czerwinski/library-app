@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Library-return books</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav class="main-nav">
+  <nav class="main-nav">
+    <div th:insert="~{fragments/header::customer-menu}"></div>
+  </nav>
+</nav>
+<div class="app-area">
+  <p>Books which you borrowed:</p>
+  <table th:insert="~{fragments/content::basic-book-table(books = ${borrowedBooks})}"></table>
+  <p th:if="${borrowedBooks.isEmpty()}">Cart is empty</p>
+  <div th:if="${!borrowedBooks.isEmpty()}">
+    <h3>Enter book ID to return it:</h3>
+    <form th:if="${borrowedBooks}" th:action="@{returnBook}" method="post">
+      <label for="book-id">Book ID: </label>
+      <input type="number" th:name="book_id" id="book-id">
+      <input type="submit">
+    </form>
+  </div>
+  <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
+  <p th:if="${successMessage}" th:text="${successMessage}"/>
+</div>
+</body>
+</html>

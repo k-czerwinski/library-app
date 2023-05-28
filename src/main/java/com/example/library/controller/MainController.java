@@ -12,13 +12,6 @@ public class MainController {
         return "main-menu";
     }
 
-    @RequestMapping("/redirectTo")
-    public String afterLogin(HttpServletRequest httpServletRequest){
-        if(httpServletRequest.isUserInRole("ADMIN"))
-            return "redirect:/book-manager/";
-        return "redirect:/library/";
-    }
-
     @RequestMapping("/accessDenied")
     public String accessDenied(){
         return "access-denied";

@@ -27,6 +27,6 @@ public class AccountService {
             throw new AlreadyExistException();
         if (!user.getPassword().equals(user.getMatchingPassword()))
             throw new PasswordsNotMatchingException();
-        userRepository.save(new User(UserRole.CUSTOMER, user.getName(), user.getSurname(), user.getEmail(), passwordEncoder.encode(user.getPassword())));
+        userRepository.save(new User(UserRole.ADMIN, user.getName(), user.getSurname(), user.getEmail(), passwordEncoder.encode(user.getPassword())));
     }
 }

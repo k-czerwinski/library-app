@@ -2,10 +2,16 @@ package com.example.library.controller;
 
 import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.exceptions.PasswordsNotMatchingException;
+import com.example.library.model.User;
 import com.example.library.model.UserDTO;
 import com.example.library.service.AccountService;
+import com.example.library.service.CustomerService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +25,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AccountController {
 
     private final AccountService accountService;
+    private final CustomerService customerService;
 
     @Autowired
-    public AccountController(AccountService accountService){
+    public AccountController(AccountService accountService, CustomerService customerService){
         this.accountService = accountService;
+        this.customerService = customerService;
     }
 
     @GetMapping("/registerForm")
@@ -61,6 +69,17 @@ public class AccountController {
 
     @GetMapping("/logoutPage")
     public String logout(){
+        customerService.clearCart();
+        customerService.clearBooksBorrowed();
         return "accountController/logout";
+    }
+
+    @RequestMapping("/redirectTo")
+    public String afterLogin(HttpServletRequest httpServletRequest, Authentication authentication){
+        if(httpServletRequest.isUserInRole("ADMIN")){
+            return "redirect:/book-manager/";
+        }
+        customerService.loadBorrowedBooks(authentication.getName());
+        return "redirect:/library/";
     }
 }
