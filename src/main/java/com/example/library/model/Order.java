@@ -5,6 +5,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "orders")
@@ -21,22 +23,30 @@ public class Order {
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Book> booksBorrowed;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    private List<Book> booksBorrowed;
+
+    @ElementCollection
+    @CollectionTable(name = "books_borrowed",
+        joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "order_id")})
+    @MapKeyColumn(name = "book_id")
+    @Column(name = "was_returned")
+    private Map<Book, Boolean> booksBorrowed;
 
     public Order() {
     }
 
     public Order(User user, List<Book> booksBorrowed){
         this.user = user;
-        this.booksBorrowed = booksBorrowed;
+//        this.booksBorrowed = booksBorrowed;
+        this.booksBorrowed = booksBorrowed.stream().collect(Collectors.toMap(b->b, b->false));
     }
 
-    public List<Book> getBooksBorrowed() {
+    public Map<Book,Boolean> getBooksBorrowed() {
         return booksBorrowed;
     }
 
-    public void setBooksBorrowed(List<Book> booksBorrowed) {
+    public void setBooksBorrowed(Map<Book,Boolean> booksBorrowed) {
         this.booksBorrowed = booksBorrowed;
     }
 

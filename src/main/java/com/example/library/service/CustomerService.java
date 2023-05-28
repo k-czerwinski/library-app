@@ -1,5 +1,6 @@
 package com.example.library.service;
 
+import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.model.Book;
 import com.example.library.model.Order;
 import com.example.library.model.User;
@@ -26,6 +27,8 @@ public class CustomerService {
     private final UserRepository userRepository;
     private List<Book> cart = new ArrayList<Book>();
 
+    private List<Book> booksBorrowed = new ArrayList<>();
+
     @Autowired
     public CustomerService(OrderRepository orderRepository, BookRepository bookRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
@@ -47,10 +50,15 @@ public class CustomerService {
             throw new NoSuchObjectException("There is no book with given ID in cart");
     }
 
-    public boolean confirmOrder(String email) {
-        List<Book> unavailableBooks = cart.stream().filter(book -> bookRepository.findById(book.getBookId()).get().getCurrentBookAmount() <= 0).toList();
+    public boolean confirmOrder(String email) throws IllegalArgumentException{
         if (!userRepository.existsByEmail(email))
             return false;
+        List<Book> booksBorrowedBefore = cart.stream().filter(b -> booksBorrowed.contains(b)).toList();
+        if (!booksBorrowedBefore.isEmpty()){
+            throw new IllegalArgumentException("You can't borrow more than one piece of book. Books which you borrowed before and wasn't returned: "
+                    + booksBorrowedBefore.stream().map(b -> b.getTitle()).reduce((o1,o2) -> o1+", "+o2 ).get());
+        }
+        List<Book> unavailableBooks = cart.stream().filter(book -> bookRepository.findById(book.getBookId()).get().getCurrentBookAmount() <= 0).toList();
         if (unavailableBooks.isEmpty()) {
             User user = userRepository.findByEmail(email);
             Order order = new Order(user,cart);
@@ -63,7 +71,16 @@ public class CustomerService {
         return false;
     }
 
-    public List<Book> getCart() {
-        return cart;
+    public List<Book> getCart() { return cart; }
+    public void clearCart(){
+        cart.clear();
+    }
+    public List<Book> getBooksBorrowed() {return  booksBorrowed; }
+    public void clearBooksBorrowed() { booksBorrowed.clear(); }
+
+    public void loadBorrowedBooks(String email){
+        Long userId = userRepository.findByEmail(email).getId();
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        booksBorrowed = orders.stream().flatMap(o -> o.getBooksBorrowed().entrySet().stream().filter(entry -> entry.getValue() == false)).map(e -> e.getKey()).toList();
     }
 }
