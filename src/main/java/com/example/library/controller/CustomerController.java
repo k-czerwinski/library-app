@@ -123,4 +123,23 @@ public class CustomerController {
         return "/customerController/view-cart";
     }
 
+    @GetMapping("/returnBookForm")
+    public String returnBooksPage(Model model){
+        model.addAttribute("borrowedBooks", customerService.getBooksBorrowed());
+        return "/customerController/return-books";
+    }
+
+    @PostMapping("/returnBook")
+    public String returnBook(@RequestParam(value = "book_id", required = false, defaultValue = "0") Long bookId, Model model){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (customerService.removeFromBorrowedBooks(bookId,email)){
+            model.addAttribute("successMessage", "Book with given ID has been removed successfully");
+        }
+        else{
+            model.addAttribute("errorMessage", "Please try again with valid book ID");
+        }
+        model.addAttribute("borrowedBooks", customerService.getBooksBorrowed());
+        return "/customerController/return-books";
+    }
+
 }

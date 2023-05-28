@@ -38,7 +38,6 @@ public class Order {
 
     public Order(User user, List<Book> booksBorrowed){
         this.user = user;
-//        this.booksBorrowed = booksBorrowed;
         this.booksBorrowed = booksBorrowed.stream().collect(Collectors.toMap(b->b, b->false));
     }
 

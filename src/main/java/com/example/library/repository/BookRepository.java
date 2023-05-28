@@ -18,6 +18,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("update Book b set b.currentBookAmount = b.currentBookAmount - 1 WHERE b.bookId = :bookId")
     void decrementBookAmountForBookWithId(@Param(value = "bookId") Long id);
 
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Query("update Book b set b.currentBookAmount = b.currentBookAmount + 1 WHERE b.bookId = :bookId")
+    void incrementBookAmountForBookWithId(@Param(value = "bookId") Long id);
+
     List<Book> findAllByTitleIsContainingIgnoreCaseAndCurrentBookAmountGreaterThan(String title, int currentBookAmount);
 
     List<Book> findAllByCurrentBookAmountGreaterThan(int currentBookAmount, Sort sort);

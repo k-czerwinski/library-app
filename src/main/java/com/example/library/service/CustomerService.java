@@ -1,11 +1,8 @@
 package com.example.library.service;
 
-import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.model.Book;
 import com.example.library.model.Order;
 import com.example.library.model.User;
-import com.example.library.model.UserDTO;
-import com.example.library.model.enums.UserRole;
 import com.example.library.repository.BookRepository;
 import com.example.library.repository.OrderRepository;
 import com.example.library.repository.UserRepository;
@@ -13,10 +10,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.rmi.NoSuchObjectException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -56,7 +54,7 @@ public class CustomerService {
         List<Book> booksBorrowedBefore = cart.stream().filter(b -> booksBorrowed.contains(b)).toList();
         if (!booksBorrowedBefore.isEmpty()){
             throw new IllegalArgumentException("You can't borrow more than one piece of book. Books which you borrowed before and wasn't returned: "
-                    + booksBorrowedBefore.stream().map(b -> b.getTitle()).reduce((o1,o2) -> o1+", "+o2 ).get());
+                    + booksBorrowedBefore.stream().map(Book::getTitle).reduce((o1,o2) -> o1+", "+o2 ).get());
         }
         List<Book> unavailableBooks = cart.stream().filter(book -> bookRepository.findById(book.getBookId()).get().getCurrentBookAmount() <= 0).toList();
         if (unavailableBooks.isEmpty()) {
@@ -65,9 +63,10 @@ public class CustomerService {
             orderRepository.save(order);
             cart.forEach(book -> bookRepository.decrementBookAmountForBookWithId(book.getBookId()));
             cart.clear();
+            loadBorrowedBooks(email);
             return true;
         }
-        unavailableBooks.forEach(book -> cart.removeIf(b -> b.getBookId() == book.getBookId()));
+        unavailableBooks.forEach(book -> cart.removeIf(b -> b.getBookId().equals(book.getBookId())));
         return false;
     }
 
@@ -82,5 +81,21 @@ public class CustomerService {
         Long userId = userRepository.findByEmail(email).getId();
         List<Order> orders = orderRepository.findAllByUserId(userId);
         booksBorrowed = orders.stream().flatMap(o -> o.getBooksBorrowed().entrySet().stream().filter(entry -> entry.getValue() == false)).map(e -> e.getKey()).toList();
+    }
+
+    public boolean removeFromBorrowedBooks(Long bookId, String email){
+        if(!userRepository.existsByEmail(email))
+            return false;
+        Long userId = userRepository.findByEmail(email).getId();
+        if(booksBorrowed.stream().anyMatch(b -> b.getBookId().equals(bookId))){
+            bookRepository.incrementBookAmountForBookWithId(bookId);
+            Long orderId = orderRepository.findAllByUserId(userId).stream()
+                    .filter(o -> o.getBooksBorrowed().entrySet().stream().anyMatch(entry -> entry.getKey().getBookId().equals(bookId) && entry.getValue() == false))
+                    .findFirst().get().getOrderId();
+            orderRepository.updateBorrowedBookStatus(bookId,orderId);
+            loadBorrowedBooks(email);
+            return true;
+        }
+        return false;
     }
 }

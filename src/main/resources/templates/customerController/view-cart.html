@@ -9,27 +9,8 @@
         <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
 <div class="app-area">
-    <table class="books-table">
-        <tr class="row header">
-            <th>Book ID</th>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>Publication Year</th>
-            <th>Author</th>
-        </tr>
-        <tbody>
-        <tr th:if="${booksInCart.isEmpty()}">
-            <td colspan="5">Cart is empty</td>
-        </tr>
-        <tr th:each="b : ${booksInCart}">
-            <td th:text="${b.bookId}"/>
-            <td th:text="${b.title}"/>
-            <td th:text="${b.bookGenre.displayName}"/>
-            <td th:text="${b.publicationYear}"/>
-            <td th:text="${b.author}"/>
-        </tr>
-        </tbody>
-    </table>
+    <table th:insert="~{fragments/content::basic-book-table(books = ${booksInCart})}"></table>
+    <p th:if="${booksInCart.isEmpty()}">Cart is empty</p>
     <div th:if="${!booksInCart.isEmpty()}">
         <h3>Enter book ID to remove it from cart</h3>
         <form th:if="${booksInCart}" th:action="@{removeFromCart}" method="post">
