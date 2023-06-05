@@ -38,10 +38,14 @@
     </table>
     <div class="set-amount-form">
         <form action=# th:action="@{setBookAmount}" method="post">
-            <label for="book-id">Book ID:</label>
-            <input type="number" th:name="book_id" id="book-id">
-            <label for="book-amount">New total book amount: </label>
-            <input type="number" th:name="bookAmount" id="book-amount">
+            <div class="form-element">
+                <label for="book-id">Book ID:</label>
+                <input type="number" th:name="book_id" id="book-id">
+            </div>
+            <div class="form-element">
+                <label for="book-amount">New total book amount: </label>
+                <input type="number" th:name="bookAmount" id="book-amount">
+            </div>
             <p th:if="${errorValueMessage}" th:text="${errorValueMessage}" class="errors"/>
             <p th:if="${errorIdMessage}" th:text="${errorIdMessage}" class="errors"/>
             <button>Confirm</button>

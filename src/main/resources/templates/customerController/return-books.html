@@ -19,8 +19,10 @@
   <div th:if="${!borrowedBooks.isEmpty()}">
     <h3>Enter book ID to return it:</h3>
     <form th:if="${borrowedBooks}" th:action="@{returnBook}" method="post">
-      <label for="book-id">Book ID: </label>
-      <input type="number" th:name="book_id" id="book-id">
+      <div class="form-element">
+        <label for="book-id">Book ID: </label>
+        <input type="number" th:name="book_id" id="book-id">
+      </div>
       <input type="submit">
     </form>
   </div>

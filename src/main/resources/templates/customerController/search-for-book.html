@@ -11,8 +11,10 @@
 </nav>
 <div class="app-area">
     <form th:action="@{searchForBook}" method="post">
-        <label for="book-title">Enter book title: </label>
-        <input type="text" th:name="title" id="book-title">
+        <div class="form-element">
+            <label for="book-title">Enter book title: </label>
+            <input type="text" th:name="title" id="book-title">
+        </div>
         <input type="submit" value="Search">
     </form>
     <table th:insert="~{fragments/content::basic-book-table(books = ${books})}"></table>
@@ -20,8 +22,10 @@
     <div th:if="${books}">
         <h3>Enter book ID to add it from cart</h3>
         <form th:action="@{addToCartFromSearchView}" method="post">
-            <label for="book-id">Book ID: </label>
-            <input type="number" th:name="book_id" id="book-id">
+            <div class="form-element">
+                <label for="book-id">Book ID: </label>
+                <input type="number" th:name="book_id" id="book-id">
+            </div>
             <input type="submit">
         </form>
     </div>

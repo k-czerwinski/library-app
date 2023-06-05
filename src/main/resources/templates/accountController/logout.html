@@ -7,6 +7,9 @@
     <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 </head>
 <body>
+    <nav class="main-nav">
+        <div th:insert="~{fragments/header::non-signed-in-menu}"></div>
+    </nav>
     <div class="app-area">
         <h2>You have successfully logged out</h2>
         <form th:action="@{/}">

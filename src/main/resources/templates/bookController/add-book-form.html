@@ -13,34 +13,40 @@
 <div class="app-area">
     <form action="#" th:action="@{addBook}" th:object="${book}" method="post">
         <div class="form-element">
-            <label for="name">Enter book title: </label>
-            <input type=text th:field="*{title}" id="name">
+            <div class="form-element">
+                <label for="name">Enter book title: </label>
+                <input type=text class="form-element" th:field="*{title}" id="name">
+            </div>
             <p th:if="${#fields.hasErrors('title')}" class="errors">Title must be between 2 and 20 characters long</p>
         </div>
         <div class="form-element">
             <label for="publicationYear">Publication year: </label>
             <input type="number" th:field="*{publicationYear}" id="publicationYear">
+        </div>
             <p th:if="${#fields.hasErrors('publicationYear')}" class="errors">Publication year must be greater than
                 1900,
                 and must be past or present</p>
-        </div>
         <div class="form-element">
             <label for="book-genre">Select book genre: </label>
-            <select th:field="*{bookGenre}" id="book-genre">
+            <select th:field="*{bookGenre}" class="form-element" id="book-genre">
                 <option th:each="genre : ${T(com.example.library.model.enums.BookGenre).values()}"
                         th:value="${genre}"
                         th:text="${genre.displayName}"></option>
             </select>
         </div>
         <div class="form-element">
-            <label for="author">Author of the book: </label>
-            <input type="text" th:field="*{author}" id="author">
+            <div class="form-element">
+                <label for="author">Author of the book: </label>
+                <input type="text" class="form-element" th:field="*{author}" id="author">
+            </div>
             <p th:if="${#fields.hasErrors('author')}" class="errors">Author of the book field must be between 2 and 40
                 characters long</p>
         </div>
         <div class="form-element">
-            <label for="book-quantity">Number of books</label>
-            <input type="number" th:field="*{totalBookAmount}" id="book-quantity">
+            <div class="form-element">
+                <label for="book-quantity">Number of books</label>
+                <input type="number" th:field="*{totalBookAmount}" id="book-quantity">
+            </div>
             <p th:if="${#fields.hasErrors('totalBookAmount')}" class="errors">Number of books cannot be negative</p>
         </div>
         <button>Add Book</button>

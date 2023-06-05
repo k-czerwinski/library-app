@@ -15,8 +15,10 @@
     <div th:if="${!booksInCart.isEmpty()}">
         <h3>Enter book ID to remove it from cart</h3>
         <form th:if="${booksInCart}" th:action="@{removeFromCart}" method="post">
-            <label for="book-id">Book ID: </label>
-            <input type="number" th:name="book_id" id="book-id">
+            <div class="form-element">
+                <label for="book-id">Book ID: </label>
+                <input type="number" th:name="book_id" id="book-id">
+            </div>
             <input type="submit">
         </form>
     </div>
