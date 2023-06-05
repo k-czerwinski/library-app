@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Search for Book - Library</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 <body>
 <nav class="main-nav">
-    <nav class="main-nav">
-        <div th:insert="~{fragments/header::customer-menu}"></div>
-    </nav>
+    <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
 <div class="app-area">
     <form th:action="@{searchForBook}" method="post">

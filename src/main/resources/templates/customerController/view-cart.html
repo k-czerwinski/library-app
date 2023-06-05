@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Your Cart - Library</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 <body>
 <nav class="main-nav">
-        <div th:insert="~{fragments/header::customer-menu}"></div>
+    <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
 <div class="app-area">
     <table th:insert="~{fragments/content::basic-book-table(books = ${booksInCart})}"></table>

@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import java.rmi.NoSuchObjectException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,7 +23,7 @@ public class CustomerService {
     private final UserRepository userRepository;
     private List<Book> cart = new ArrayList<Book>();
 
-    private List<Book> booksBorrowed = new ArrayList<>();
+    private List<Book> booksBorrowed = new ArrayList<Book>();
 
     @Autowired
     public CustomerService(OrderRepository orderRepository, BookRepository bookRepository, UserRepository userRepository) {
@@ -75,7 +73,9 @@ public class CustomerService {
         cart.clear();
     }
     public List<Book> getBooksBorrowed() {return  booksBorrowed; }
-    public void clearBooksBorrowed() { booksBorrowed.clear(); }
+    public void clearBooksBorrowed() {
+//        booksBorrowed.clear();
+    }
 
     public void loadBorrowedBooks(String email){
         Long userId = userRepository.findByEmail(email).getId();

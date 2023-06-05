@@ -2,14 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Library Manager</title>
+    <title>Library</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 </head>
 <body>
 <nav class="main-nav">
-    <nav class="main-nav">
-        <div th:insert="~{fragments/header::customer-menu}"></div>
-    </nav>
+    <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
 <div class="app-area">
     <a th:href="@{searchForBookForm}">

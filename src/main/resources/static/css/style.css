@@ -6,3 +6,35 @@
     width: 100%;
     height: 100%;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EAE7DC;
+    font-family: Tahoma;
+}
+
+.nav-menu{
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 2em 2em 2em;
+    background: #e98074;
+}
+
+.nav-element{
+    padding: 2em 0.5em 2em 0.5em;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+}
+
+.main-nav{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+}
