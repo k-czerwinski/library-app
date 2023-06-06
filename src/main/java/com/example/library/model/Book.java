@@ -21,7 +21,7 @@ public class Book {
     @Size(min = 3, max = 50)
     private String title;
 
-    @Min(1900)
+    @Min(1800)
     private int publicationYear;
 
     @NotEmpty(message = "Not null")

@@ -9,9 +9,10 @@
 <nav class="main-nav">
     <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
-<div class="app-area">
-    <h2>Available books:</h2>
-    <table class="books-complex-table">
+<div class="content-area">
+    <div class="app-area">
+        <h2>Available books:</h2>
+        <table class="books-complex-table">
             <tr class="row-header">
                 <td style="padding: 0 15px"><a th:href="@{viewBooks?sort_by=bookId}">Book ID</a></td>
                 <td><a th:href="@{viewBooks?sort_by=title}">Title</a></td>
@@ -19,26 +20,27 @@
                 <td style="padding: 0 15px"><a th:href="@{viewBooks?sort_by=publicationYear}">Publication Year</a></td>
                 <td><a th:href="@{viewBooks?sort_by=author}">Author</a></td>
             </tr>
-        <tbody>
-        <tr th:each="b : ${books}">
-            <td th:text="${b.bookId}"/>
-            <td th:text="${b.title}"/>
-            <td th:text="${b.bookGenre.displayName}"/>
-            <td th:text="${b.publicationYear}"/>
-            <td th:text="${b.author}"/>
-        </tr>
-        </tbody>
-    </table>
-    <h3>Enter book ID to add to cart</h3>
-    <form th:action="@{/library/addToCart}" method="post">
-        <div class="form-element">
-            <label for="book-id">Book ID: </label>
-            <input type="number" class="form-element" th:name="book_id" id="book-id">
-        </div>
-        <button type="submit">Add Book</button>
-    </form>
-    <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
-    <p th:if="${successMessage}" th:text="${successMessage}"/>
+            <tbody>
+            <tr th:each="b : ${books}">
+                <td th:text="${b.bookId}"/>
+                <td th:text="${b.title}"/>
+                <td th:text="${b.bookGenre.displayName}"/>
+                <td th:text="${b.publicationYear}"/>
+                <td th:text="${b.author}"/>
+            </tr>
+            </tbody>
+        </table>
+        <h3>Enter book ID to add to cart</h3>
+        <form th:action="@{/library/addToCart}" method="post">
+            <div class="form-element">
+                <label for="book-id">Book ID: </label>
+                <input type="number" class="form-element" th:name="book_id" id="book-id">
+            </div>
+            <button type="submit">Add Book</button>
+        </form>
+        <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
+        <p th:if="${successMessage}" th:text="${successMessage}"/>
+    </div>
 </div>
 </body>
 </html>

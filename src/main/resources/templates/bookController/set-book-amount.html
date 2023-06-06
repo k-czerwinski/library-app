@@ -10,25 +10,27 @@
 <nav class="main-nav">
     <div th:insert="~{fragments/header::admin-menu}"></div>
 </nav>
-<div class="app-area">
-    <h2>Books collection:</h2>
-    <table th:insert="~{fragments/content::admin-book-table(books = ${books})}"></table>
-    <div class="set-amount-form">
-        <form action=# th:action="@{setBookAmount}" method="post">
-            <div class="form-element">
-                <label for="book-id">Book ID:</label>
-                <input type="number" th:name="book_id" id="book-id">
-            </div>
-            <div class="form-element">
-                <label for="book-amount">New total book amount: </label>
-                <input type="number" th:name="bookAmount" id="book-amount">
-            </div>
-            <p th:if="${errorValueMessage}" th:text="${errorValueMessage}" class="errors"/>
-            <p th:if="${errorIdMessage}" th:text="${errorIdMessage}" class="errors"/>
-            <button type="submit">Confirm</button>
-        </form>
+<div class="content-area">
+    <div class="app-area">
+        <h2>Books collection:</h2>
+        <table th:insert="~{fragments/content::admin-book-table(books = ${books})}"></table>
+        <div class="set-amount-form">
+            <form action=# th:action="@{setBookAmount}" method="post">
+                <div class="form-element">
+                    <label for="book-id">Book ID:</label>
+                    <input type="number" th:name="book_id" id="book-id">
+                </div>
+                <div class="form-element">
+                    <label for="book-amount">New total book amount: </label>
+                    <input type="number" th:name="bookAmount" id="book-amount">
+                </div>
+                <p th:if="${errorValueMessage}" th:text="${errorValueMessage}" class="errors"/>
+                <p th:if="${errorIdMessage}" th:text="${errorIdMessage}" class="errors"/>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
+        <p th:if="${successMessage}" th:text="${successMessage}"/>
     </div>
-    <p th:if="${successMessage}" th:text="${successMessage}"/>
 </div>
 </body>
 </html>

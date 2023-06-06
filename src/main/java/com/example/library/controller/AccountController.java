@@ -45,10 +45,10 @@ public class AccountController {
         if (bindingResult.hasErrors()) return "accountController/register-form";
         try{
             accountService.saveUser(user);
-            model.addAttribute("message", "You have successfully registered. You can now sing in.");
+            model.addAttribute("message", "You have successfully registered. You can now sign in.");
         }
         catch (AlreadyExistException e){
-            model.addAttribute("message", "User with that email already exist");
+            model.addAttribute("error", "User with that email already exist");
         }
         catch (PasswordsNotMatchingException e){
             model.addAttribute("matchingPasswordError", "Password not matching");

@@ -43,8 +43,9 @@
         <p th:if="matchingPasswordError" th:text="${matchingPasswordError}" class="errors"/>
         <button>Add User</button>
     </form>
-    <div class="errors">
-        <h2 th:if="${message}" th:text="${message}"/>
+    <div>
+        <p th:if="${message}" th:text="${message}"/>
+        <p th:if="${error}" class="errors" th:text="${error}"/>
     </div>
 </div>
 </body>
