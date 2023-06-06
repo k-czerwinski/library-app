@@ -40,16 +40,18 @@ body {
 }
 
 .app-area{
-    width: 80%;
     padding: 2em 2em 2em 2em;
     color: #5e5e5e;
     background: #D8C3A5;
     border-radius: 0.5em;
-    position: fixed;
-    top: 100px;
+    margin-top: 100px;
 }
 
-#main-menu-head-content{
+#main-menu{
+    width: 80%;
+}
+
+.main-menu-head-content{
     display: flex;
 }
 
@@ -58,19 +60,19 @@ body {
     object-fit: cover;
 }
 
-#main-menu-text{
+.main-menu-text{
     width: 60%;
     font-size: 1.2em;
     padding-right: 1em;
     text-align: justify;
 }
 
-#main-menu-text ul{
+.main-menu-text ul{
     list-style: none;
     padding-left: 0px;
 }
 
-#main-menu-text h1{
+.main-menu-text h1{
     margin-top: 0px;
 }
 
@@ -127,4 +129,15 @@ form label{
 form ul{
     list-style: none;
     padding: 0;
+}
+
+.vertical-buttons-menu{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    justify-content: center;
+}
+
+.vertical-buttons-menu form{
+    padding: 0.5em;
 }

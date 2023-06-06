@@ -49,7 +49,7 @@
             </div>
             <p th:if="${#fields.hasErrors('totalBookAmount')}" class="errors">Number of books cannot be negative</p>
         </div>
-        <button>Add Book</button>
+        <button type="submit">Add Book</button>
     </form>
     <div class="errors">
         <h2 th:if="${message}" th:text="${message}"/>
@@ -57,7 +57,7 @@
     <div th:if="${changeAmount}">
         <h3>Do you want to change amount of books in library? Click button below.</h3>
         <form action=# th:action="@{setBookAmountForm}">
-            <button>Set Amount</button>
+            <button type="submit">Set Amount</button>
         </form>
     </div>
 </div>

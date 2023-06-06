@@ -36,7 +36,7 @@
             <label for="book-id">Book ID: </label>
             <input type="number" class="form-element" th:name="book_id" id="book-id">
         </div>
-        <input type="submit">
+        <button type="submit">Add Book</button>
     </form>
     <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
     <p th:if="${successMessage}" th:text="${successMessage}"/>

@@ -10,16 +10,38 @@
 <nav class="main-nav">
     <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
-<div class="app-area">
-    <a th:href="@{searchForBookForm}">
-        <button>Search For Book</button>
-    </a>
-    <a th:href="@{cartView}">
-        <button>Cart</button>
-    </a>
-    <a th:href="@{viewBooks}">
-        <button>View Available Books</button>
-    </a>
+<div class="app-area" id="main-menu">
+    <div class="main-menu-head-content">
+        <div class="main-menu-text">
+            <h1 style="text-align: center">Library Customer Panel</h1>
+            <p>Library customer panel allow you to borrow and search for book. Furthermore, you can return books which you have already borrowed. Each operation is can be executed by user-friendly interface. List of available operations:</p>
+            <ol>
+                <li>View books</li>
+                    <p>You can view our entire available collection of books. When you click on column header entire table will be sorted by that factor. You can add there book to cart.</p>
+                <li>Search for a book</li>
+                    <p>You can search for book which you are interested in. Panel will show you available options from which you can choose book to add cart.</p>
+                <li>Return books</li>
+                    <p>There you can see list of books which you have already borrowed and return its.</p>
+                <li>Cart interface</li>
+                    <p>There are stored books which you added to cart. By cart interface you can remove books from cart or confirm order.</p>
+            </ol>
+        </div>
+        <div class="vertical-buttons-menu">
+            <h3 style="text-align: center">Find your favourite books!</h3>
+            <form action="#" th:action="@{/library/viewBooks}">
+                <button type="submit">View books collection</button>
+            </form>
+            <form action="#" th:action="@{/library/searchForBookForm}">
+                <button type="submit">Search for books</button>
+            </form>
+            <form action="#" th:action="@{/library/returnBookForm}">
+                <button type="submit">Return books</button>
+            </form>
+            <form action="#" th:action="@{/library/cartView}">
+                <button type="submit">Your cart</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
