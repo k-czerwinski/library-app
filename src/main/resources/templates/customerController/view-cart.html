@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <title>Your Cart - Library</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 <body>
 <nav class="main-nav">
-        <div th:insert="~{fragments/header::customer-menu}"></div>
+    <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
 <div class="app-area">
+    <h2>Books in cart:</h2>
     <table th:insert="~{fragments/content::basic-book-table(books = ${booksInCart})}"></table>
     <p th:if="${booksInCart.isEmpty()}">Cart is empty</p>
     <div th:if="${!booksInCart.isEmpty()}">
         <h3>Enter book ID to remove it from cart</h3>
         <form th:if="${booksInCart}" th:action="@{removeFromCart}" method="post">
-            <label for="book-id">Book ID: </label>
-            <input type="number" th:name="book_id" id="book-id">
-            <input type="submit">
+            <div class="form-element">
+                <label for="book-id">Book ID: </label>
+                <input type="number" th:name="book_id" id="book-id">
+            </div>
+            <button type="submit">Remove</button>
         </form>
     </div>
     <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>

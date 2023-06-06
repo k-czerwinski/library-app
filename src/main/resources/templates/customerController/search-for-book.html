@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <title>Search for Book - Library</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 <body>
 <nav class="main-nav">
-    <nav class="main-nav">
-        <div th:insert="~{fragments/header::customer-menu}"></div>
-    </nav>
+    <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
 <div class="app-area">
     <form th:action="@{searchForBook}" method="post">
-        <label for="book-title">Enter book title: </label>
-        <input type="text" th:name="title" id="book-title">
-        <input type="submit" value="Search">
+        <div class="form-element">
+            <label for="book-title">Enter book title: </label>
+            <input type="text" th:name="title" id="book-title">
+        </div>
+        <button type="submit">Search for book</button>
     </form>
-    <table th:insert="~{fragments/content::basic-book-table(books = ${books})}"></table>
+    <table th:if="${books}" id="search-table" th:insert="~{fragments/content::basic-book-table(books = ${books})}"></table>
     <p th:if="${notFoundMessage}" th:text="${notFoundMessage}" class="errors"/>
     <div th:if="${books}">
         <h3>Enter book ID to add it from cart</h3>
         <form th:action="@{addToCartFromSearchView}" method="post">
-            <label for="book-id">Book ID: </label>
-            <input type="number" th:name="book_id" id="book-id">
-            <input type="submit">
+            <div class="form-element">
+                <label for="book-id">Book ID: </label>
+                <input type="number" th:name="book_id" id="book-id">
+            </div>
+            <button type="submit">Add to cart</button>
         </form>
     </div>
     <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>

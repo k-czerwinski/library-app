@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <title>Books Available - Library</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 <body>
 <nav class="main-nav">
     <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
 <div class="app-area">
-    <table class="books-table">
-        <form th:action="@{viewBooks}" method="get">
-            <tr class="row header">
-                <td><button type="submit" class="row-button" th:name="sort_by" th:value="bookId">Book ID</button></td>
-                <td><button type="submit" class="row-button" th:name="sor_by" th:value="title">Title</button></td>
-                <td><button type="submit" class="row-button" th:name="sort_by" th:value="bookGenre">Genre</button></td>
-                <td><button type="submit" class="row-button" th:name="sort_by" th:value="publicationYear">Publication Year</button></td>
-                <td><button type="submit" class="row-button" th:name="sort_by" th:value="author">Author</button></td>
+    <h2>Available books:</h2>
+    <table class="books-complex-table">
+            <tr class="row-header">
+                <td style="padding: 0 15px"><a th:href="@{viewBooks?sort_by=bookId}">Book ID</a></td>
+                <td><a th:href="@{viewBooks?sort_by=title}">Title</a></td>
+                <td><a th:href="@{viewBooks?sort_by=bookGenre}">Genre</a></td>
+                <td style="padding: 0 15px"><a th:href="@{viewBooks?sort_by=publicationYear}">Publication Year</a></td>
+                <td><a th:href="@{viewBooks?sort_by=author}">Author</a></td>
             </tr>
-        </form>
         <tbody>
         <tr th:each="b : ${books}">
             <td th:text="${b.bookId}"/>
@@ -31,9 +31,11 @@
     </table>
     <h3>Enter book ID to add to cart</h3>
     <form th:action="@{/library/addToCart}" method="post">
-        <label for="book-id">Book ID: </label>
-        <input type="number" th:name="book_id" id="book-id">
-        <input type="submit">
+        <div class="form-element">
+            <label for="book-id">Book ID: </label>
+            <input type="number" class="form-element" th:name="book_id" id="book-id">
+        </div>
+        <button type="submit">Add Book</button>
     </form>
     <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
     <p th:if="${successMessage}" th:text="${successMessage}"/>

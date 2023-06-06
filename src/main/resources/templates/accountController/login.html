@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Sing in - Library</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 </head>
 <body>
-<nav>
+<nav class="main-nav">
     <div th:insert="~{fragments/header::non-signed-in-menu}"></div>
 </nav>
 <div class="app-area">
-    <form th:action="@{login}" method="post">
-        <div class="form=element">
+    <form action="#" th:action="@{login}" method="post">
+        <div class="form-element">
             <label for="email-field">Email</label>
             <input type="email" th:name="email" id="email-field">
         </div>
@@ -20,8 +21,8 @@
             <input type="password" th:name="password" id="password-field">
         </div>
         <button>Sing in</button>
+        <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
     </form>
-    <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
 </div>
 </body>
 </html>

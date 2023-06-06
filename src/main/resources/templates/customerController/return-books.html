@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Library-return books</title>
+  <title>Return Books - Library</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+  <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 </head>
 <body>
 <nav class="main-nav">
@@ -12,15 +13,17 @@
   </nav>
 </nav>
 <div class="app-area">
-  <p>Books which you borrowed:</p>
+  <h2>Books which you borrowed:</h2>
   <table th:insert="~{fragments/content::basic-book-table(books = ${borrowedBooks})}"></table>
   <p th:if="${borrowedBooks.isEmpty()}">Cart is empty</p>
   <div th:if="${!borrowedBooks.isEmpty()}">
     <h3>Enter book ID to return it:</h3>
     <form th:if="${borrowedBooks}" th:action="@{returnBook}" method="post">
-      <label for="book-id">Book ID: </label>
-      <input type="number" th:name="book_id" id="book-id">
-      <input type="submit">
+      <div class="form-element">
+        <label for="book-id">Book ID: </label>
+        <input type="number" th:name="book_id" id="book-id">
+      </div>
+      <button type="submit">Confirm return</button>
     </form>
   </div>
   <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
