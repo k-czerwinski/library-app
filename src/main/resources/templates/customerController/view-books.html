@@ -10,16 +10,15 @@
     <div th:insert="~{fragments/header::customer-menu}"></div>
 </nav>
 <div class="app-area">
-    <table class="books-table">
-        <form th:action="@{viewBooks}" method="get">
-            <tr class="row header">
-                <td><button type="submit" class="row-button" th:name="sort_by" th:value="bookId">Book ID</button></td>
-                <td><button type="submit" class="row-button" th:name="sor_by" th:value="title">Title</button></td>
-                <td><button type="submit" class="row-button" th:name="sort_by" th:value="bookGenre">Genre</button></td>
-                <td><button type="submit" class="row-button" th:name="sort_by" th:value="publicationYear">Publication Year</button></td>
-                <td><button type="submit" class="row-button" th:name="sort_by" th:value="author">Author</button></td>
+    <h2>Available books:</h2>
+    <table class="books-complex-table">
+            <tr class="row-header">
+                <td style="padding: 0 15px"><a th:href="@{viewBooks?sort_by=bookId}">Book ID</a></td>
+                <td><a th:href="@{viewBooks?sort_by=title}">Title</a></td>
+                <td><a th:href="@{viewBooks?sort_by=bookGenre}">Genre</a></td>
+                <td style="padding: 0 15px"><a th:href="@{viewBooks?sort_by=publicationYear}">Publication Year</a></td>
+                <td><a th:href="@{viewBooks?sort_by=author}">Author</a></td>
             </tr>
-        </form>
         <tbody>
         <tr th:each="b : ${books}">
             <td th:text="${b.bookId}"/>

@@ -17,7 +17,7 @@
         </div>
         <button type="submit">Search for book</button>
     </form>
-    <table th:insert="~{fragments/content::basic-book-table(books = ${books})}"></table>
+    <table th:if="${books}" id="search-table" th:insert="~{fragments/content::basic-book-table(books = ${books})}"></table>
     <p th:if="${notFoundMessage}" th:text="${notFoundMessage}" class="errors"/>
     <div th:if="${books}">
         <h3>Enter book ID to add it from cart</h3>

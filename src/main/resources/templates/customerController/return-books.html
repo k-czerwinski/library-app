@@ -13,7 +13,7 @@
   </nav>
 </nav>
 <div class="app-area">
-  <p>Books which you borrowed:</p>
+  <h2>Books which you borrowed:</h2>
   <table th:insert="~{fragments/content::basic-book-table(books = ${borrowedBooks})}"></table>
   <p th:if="${borrowedBooks.isEmpty()}">Cart is empty</p>
   <div th:if="${!borrowedBooks.isEmpty()}">
