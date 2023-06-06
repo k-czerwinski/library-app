@@ -2,7 +2,6 @@ package com.example.library.controller;
 
 import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.exceptions.PasswordsNotMatchingException;
-import com.example.library.model.User;
 import com.example.library.model.UserDTO;
 import com.example.library.service.AccountService;
 import com.example.library.service.CustomerService;
@@ -10,8 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,7 +54,7 @@ public class AccountController {
     }
 
     @GetMapping("/login")
-    public String singinForm(){
+    public String signInForm(){
         return "accountController/login";
     }
 
@@ -70,7 +67,6 @@ public class AccountController {
     @GetMapping("/logoutPage")
     public String logout(){
         customerService.clearCart();
-        customerService.clearBooksBorrowed();
         return "accountController/logout";
     }
 

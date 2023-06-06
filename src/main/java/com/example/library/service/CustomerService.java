@@ -73,9 +73,6 @@ public class CustomerService {
         cart.clear();
     }
     public List<Book> getBooksBorrowed() {return  booksBorrowed; }
-    public void clearBooksBorrowed() {
-//        booksBorrowed.clear();
-    }
 
     public void loadBorrowedBooks(String email){
         Long userId = userRepository.findByEmail(email).getId();

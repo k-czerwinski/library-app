@@ -1,8 +1,6 @@
 package com.example.library.controller;
 
-import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.model.Book;
-import com.example.library.model.User;
 import com.example.library.repository.BookRepository;
 import com.example.library.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,7 +124,8 @@ public class CustomerController {
     @GetMapping("/returnBookForm")
     public String returnBooksPage(Model model){
         model.addAttribute("borrowedBooks", customerService.getBooksBorrowed());
-        return "/customerController/return-books";
+        throw new RuntimeException();
+//        return "/customerController/return-books";
     }
 
     @PostMapping("/returnBook")
@@ -141,5 +140,4 @@ public class CustomerController {
         model.addAttribute("borrowedBooks", customerService.getBooksBorrowed());
         return "/customerController/return-books";
     }
-
 }

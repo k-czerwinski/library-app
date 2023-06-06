@@ -23,9 +23,6 @@ public class Order {
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User user;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private List<Book> booksBorrowed;
-
     @ElementCollection
     @CollectionTable(name = "books_borrowed",
         joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "order_id")})
