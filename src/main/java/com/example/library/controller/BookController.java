@@ -72,7 +72,7 @@ public class BookController {
             model.addAttribute("errorIdMessage", "Could find book with given ID");
             errors = true;
         }
-        if (!errors) model.addAttribute("successMessage", "Book amount changes successfully");
+        if (!errors) model.addAttribute("successMessage", "Book amount changed successfully");
         model.addAttribute("books", bookRepository.findAll());
         return "bookController/set-book-amount";
     }

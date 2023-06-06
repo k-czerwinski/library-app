@@ -10,16 +10,33 @@
 <nav class="main-nav">
     <div th:insert="~{fragments/header::admin-menu}"></div>
 </nav>
-<div clas="app-area">
-    <a th:href="@{addBookForm}">
-        <button>Add Book</button>
-    </a>
-    <a th:href="@{setBookAmountForm}">
-        <button>Set Book Amount</button>
-    </a>
-    <a th:href="@{viewBooks}">
-        <button>View Books</button>
-    </a>
+<div class="app-area" id="manager-main-menu">
+    <div class="main-menu-head-content">
+        <div class="main-menu-text">
+            <h1 style="text-align: center">Library Manager Panel</h1>
+            <p>Library manager panel allow you to manage the library's collection. You can add new books, view library collection and change books amount. Each operation can be executed by user-friendly interface. List of available operations:</p>
+            <ol>
+                <li>View books</li>
+                <p>You can view our entire available collection of books. You can check total book amount and currently available book amount.</p>
+                <li>Change book amount</li>
+                <p>You can modify amount of each book in library collection.</p>
+                <li>Add books</li>
+                <p>There you can see add new books to library collection. You have to specify title, publication year, author name and genre.</p>
+            </ol>
+        </div>
+        <div class="vertical-buttons-menu">
+            <h3 style="text-align: center">Choose operation:</h3>
+            <form action="#" th:action="@{/book-manager/viewBooks}">
+                <button type="submit">View books collection</button>
+            </form>
+            <form action="#" th:action="@{/book-manager/setBookAmountForm}">
+                <button type="submit">Set book amount</button>
+            </form>
+            <form action="#" th:action="@{/book-manager/addBookForm}">
+                <button type="submit">Add books</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -80,6 +80,10 @@ body {
     display: flex;
 }
 
+#manager-main-menu{
+    width: 80%;
+}
+
 #main-menu-action div{
     width: 50%;
 }
@@ -101,7 +105,7 @@ button{
     border-radius: 0.2em;
     border-color: #8e8d8a;
     border-style: solid;
-    font-size: 1.2em;
+    font-size: 1em;
     color: #5e5e5e;
     text-align: center;
 }
@@ -147,7 +151,7 @@ table {
     border-spacing: 1px;
 }
 
-.basic-book-table th, td, tr {
+.book-table th, td, tr {
     padding-right: 15px;
     padding-left: 15px;
 }

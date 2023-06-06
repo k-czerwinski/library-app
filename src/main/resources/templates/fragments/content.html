@@ -6,7 +6,7 @@
     <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"/>
 </head>
 <body>
-<table class="basic-book-table" th:fragment="basic-book-table(books)">
+<table class="book-table" th:fragment="basic-book-table(books)">
         <tr class="row header">
             <th>Book ID</th>
             <th>Title</th>
@@ -23,6 +23,31 @@
             <td th:text="${b.author}"/>
         </tr>
         </tbody>
+</table>
+<table class="book-table" th:fragment="admin-book-table(books)">
+    <tr>
+        <th>Book ID</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Publication Year</th>
+        <th>Author</th>
+        <th>Total Amount</th>
+        <th>Current Amount</th>
+    </tr>
+    <tbody>
+    <tr th:if="${books.isEmpty()}">
+        <td colspan="7">Library collection is empty</td>
+    </tr>
+    <tr th:each="b : ${books}">
+        <td th:text="${b.bookId}"/>
+        <td th:text="${b.title}"/>
+        <td th:text="${b.bookGenre.displayName}"/>
+        <td th:text="${b.publicationYear}"/>
+        <td th:text="${b.author}"/>
+        <td th:text="${b.totalBookAmount}"/>
+        <td th:text="${b.currentBookAmount}"/>
+    </tr>
+    </tbody>
 </table>
 </body>
 </html>

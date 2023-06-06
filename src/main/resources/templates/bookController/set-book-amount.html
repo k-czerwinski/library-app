@@ -11,31 +11,8 @@
     <div th:insert="~{fragments/header::admin-menu}"></div>
 </nav>
 <div class="app-area">
-    <table class="books-table">
-        <tr class="row header">
-            <td>Book ID</td>
-            <td>Title</td>
-            <td>Genre</td>
-            <td>Publication Year</td>
-            <td>Author</td>
-            <td>Total Amount</td>
-            <td>Current Amount</td>
-        </tr>
-        <tbody>
-        <tr th:if="${books.isEmpty()}">
-            <td colspan="7">Library collection is empty</td>
-        </tr>
-        <tr th:each="b : ${books}">
-            <td th:text="${b.bookId}"/>
-            <td th:text="${b.title}"/>
-            <td th:text="${b.bookGenre.displayName}"/>
-            <td th:text="${b.publicationYear}"/>
-            <td th:text="${b.author}"/>
-            <td th:text="${b.totalBookAmount}"/>
-            <td th:text="${b.currentBookAmount}"/>
-        </tr>
-        </tbody>
-    </table>
+    <h2>Books collection:</h2>
+    <table th:insert="~{fragments/content::admin-book-table(books = ${books})}"></table>
     <div class="set-amount-form">
         <form action=# th:action="@{setBookAmount}" method="post">
             <div class="form-element">
@@ -51,7 +28,7 @@
             <button type="submit">Confirm</button>
         </form>
     </div>
-    <h2 th:if="${successMessage}" th:text="${successMessage}"/>
+    <p th:if="${successMessage}" th:text="${successMessage}"/>
 </div>
 </body>
 </html>
