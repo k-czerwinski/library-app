@@ -6,6 +6,7 @@ import com.example.library.model.Book;
 import com.example.library.repository.BookRepository;
 import com.sun.jdi.ObjectCollectedException;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class BookService {
     private final BookRepository bookRepository;
 
+    @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }

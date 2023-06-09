@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(
-            ExceptionController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionController.class);
 
     @ExceptionHandler(value = Exception.class )
     public String handleException(HttpServletRequest request, Exception ex, Model model) {

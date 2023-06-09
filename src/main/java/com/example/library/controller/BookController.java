@@ -27,7 +27,6 @@ public class BookController {
 
     @RequestMapping("/")
     public String mainPage() {
-
         return "bookController/main-menu";
     }
 
@@ -43,7 +42,7 @@ public class BookController {
         try {
             bookService.saveBook(book);
         } catch (AlreadyExistException e) {
-            model.addAttribute("message", "That book with already exist");
+            model.addAttribute("message", "That book already exist");
             model.addAttribute("changeAmount", "true");
             return "bookController/add-book-form";
         } catch (Exception e) {
@@ -51,7 +50,7 @@ public class BookController {
             return "bookController/add-book-form";
         }
         model.addAttribute("message", "Book successfully added");
-        return "bookController/add-book-form"; //will be developed: redirect to viewBooks and show bolded row with that book
+        return "bookController/add-book-form";
     }
 
     @GetMapping("/setBookAmountForm")

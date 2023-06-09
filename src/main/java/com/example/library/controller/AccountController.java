@@ -34,15 +34,17 @@ public class AccountController {
     public String displayRegisterForm(Model model){
         UserDTO user = new UserDTO();
         model.addAttribute("user", user);
-        return "accountController/register-form";
+        return "accountController/register";
     }
 
     @PostMapping("/register")
     public String register(@ModelAttribute("user") @Valid UserDTO user, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()) return "accountController/register-form";
+        if (bindingResult.hasErrors()) return "register";
         try{
             accountService.saveUser(user);
+            model.addAttribute("user", new UserDTO());
             model.addAttribute("message", "You have successfully registered. You can now sign in.");
+            return  "accountController/register";
         }
         catch (AlreadyExistException e){
             model.addAttribute("error", "User with that email already exist");
@@ -50,7 +52,7 @@ public class AccountController {
         catch (PasswordsNotMatchingException e){
             model.addAttribute("matchingPasswordError", "Password not matching");
         }
-        return "accountController/register-form";
+        return "accountController/register";
     }
 
     @GetMapping("/login")

@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {
-    UserRepository userRepository;
+    final UserRepository userRepository;
 
-    PasswordEncoder passwordEncoder;
+    final PasswordEncoder passwordEncoder;
 
     @Autowired
     public AccountService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -27,6 +27,6 @@ public class AccountService {
             throw new AlreadyExistException();
         if (!user.getPassword().equals(user.getMatchingPassword()))
             throw new PasswordsNotMatchingException();
-        userRepository.save(new User(UserRole.ADMIN, user.getName(), user.getSurname(), user.getEmail(), passwordEncoder.encode(user.getPassword())));
+        userRepository.save(new User(UserRole.CUSTOMER, user.getName(), user.getSurname(), user.getEmail(), passwordEncoder.encode(user.getPassword())));
     }
 }

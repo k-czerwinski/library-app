@@ -6,6 +6,7 @@ import com.example.library.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -109,12 +110,13 @@ public class CustomerController {
     public String confirmOrder(Model model) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try{
-            if (customerService.confirmOrder(email))
+            List <Book>unavailableBooks = customerService.confirmOrder(email);
+            if (unavailableBooks.isEmpty())
                 model.addAttribute("orderMessage", "Order confirmed. We wish you good reading.");
             else
-                model.addAttribute("orderMessage", "We have removed from cart books which are unavailable. Check cart and click confirm order again.");
+                model.addAttribute("unavailableBooks",  unavailableBooks.stream().map(book -> book.getTitle()));
         }
-        catch (IllegalArgumentException e){
+        catch (UsernameNotFoundException e){
             model.addAttribute("orderMessage", e.getMessage());
         }
         model.addAttribute("booksInCart", customerService.getCart());
@@ -124,8 +126,7 @@ public class CustomerController {
     @GetMapping("/returnBookForm")
     public String returnBooksPage(Model model){
         model.addAttribute("borrowedBooks", customerService.getBooksBorrowed());
-        throw new RuntimeException();
-//        return "/customerController/return-books";
+        return "/customerController/return-books";
     }
 
     @PostMapping("/returnBook")

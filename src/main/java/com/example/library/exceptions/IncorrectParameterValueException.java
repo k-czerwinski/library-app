@@ -1,6 +1,3 @@
 package com.example.library.exceptions;
 
-public class IncorrectParameterValueException extends RuntimeException{
-    public IncorrectParameterValueException() {
-    }
-}
+public class IncorrectParameterValueException extends RuntimeException{ }

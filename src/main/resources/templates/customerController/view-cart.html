@@ -23,7 +23,12 @@
             <button type="submit">Remove</button>
         </form>
     </div>
-    <p th:if="${errorMessage}" class="errors" th:text="${errorMessage}"/>
+    <div th:if="${unavailableBooks}">
+        <p class="errors">You can't borrow more than one piece of book. Books which you borrowed before and wasn't returned:</p>
+        <ul>
+            <li style="list-style: none" class="errors" th:each="b : ${unavailableBooks}" th:text="${b}"/>
+        </ul>
+    </div>
     <p th:if="${successMessage}" th:text="${successMessage}"/>
     <div th:if="${!booksInCart.isEmpty()}">
         <form th:if="${booksInCart}" th:action="@{confirmOrder}" method="post">
