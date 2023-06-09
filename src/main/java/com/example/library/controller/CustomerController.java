@@ -1,13 +1,12 @@
 package com.example.library.controller;
 
-import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.model.Book;
-import com.example.library.model.User;
 import com.example.library.repository.BookRepository;
 import com.example.library.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -111,12 +110,13 @@ public class CustomerController {
     public String confirmOrder(Model model) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         try{
-            if (customerService.confirmOrder(email))
+            List <Book>unavailableBooks = customerService.confirmOrder(email);
+            if (unavailableBooks.isEmpty())
                 model.addAttribute("orderMessage", "Order confirmed. We wish you good reading.");
             else
-                model.addAttribute("orderMessage", "We have removed from cart books which are unavailable. Check cart and click confirm order again.");
+                model.addAttribute("unavailableBooks",  unavailableBooks.stream().map(book -> book.getTitle()));
         }
-        catch (IllegalArgumentException e){
+        catch (UsernameNotFoundException e){
             model.addAttribute("orderMessage", e.getMessage());
         }
         model.addAttribute("booksInCart", customerService.getCart());
@@ -141,5 +141,4 @@ public class CustomerController {
         model.addAttribute("borrowedBooks", customerService.getBooksBorrowed());
         return "/customerController/return-books";
     }
-
 }

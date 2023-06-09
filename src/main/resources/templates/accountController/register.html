@@ -21,7 +21,7 @@
             <label for="surname-field">Surname: </label>
             <input type="text" th:field="*{surname}" id="surname-field">
         </div>
-        <p th:if="${#fields.hasErrors('surname')}" class="errors">Surname must be beetween 2 and 20 characters long</p>
+        <p th:if="${#fields.hasErrors('surname')}" class="errors">Surname must be between 2 and 20 characters long</p>
         <div class="form-element">
             <label for="email-field">Email: </label>
             <input type="email" th:field="*{email}" id="email-field">
@@ -43,8 +43,9 @@
         <p th:if="matchingPasswordError" th:text="${matchingPasswordError}" class="errors"/>
         <button>Add User</button>
     </form>
-    <div class="errors">
-        <h2 th:if="${message}" th:text="${message}"/>
+    <div>
+        <p th:if="${message}" th:text="${message}"/>
+        <p th:if="${error}" class="errors" th:text="${error}"/>
     </div>
 </div>
 </body>

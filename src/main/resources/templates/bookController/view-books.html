@@ -10,9 +10,11 @@
 <nav class="main-nav">
     <div th:insert="~{fragments/header::admin-menu}"></div>
 </nav>
-<div class="app-area">
-    <h2>Books collection:</h2>
-    <table th:insert="~{fragments/content::admin-book-table(books = ${books})}"></table>
+<div class="content-area">
+    <div class="app-area">
+        <h2>Books collection:</h2>
+        <table th:insert="~{fragments/content::admin-book-table(books = ${books})}"></table>
+    </div>
 </div>
 </body>
 </html>

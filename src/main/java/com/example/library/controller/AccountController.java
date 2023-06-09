@@ -2,7 +2,6 @@ package com.example.library.controller;
 
 import com.example.library.exceptions.AlreadyExistException;
 import com.example.library.exceptions.PasswordsNotMatchingException;
-import com.example.library.model.User;
 import com.example.library.model.UserDTO;
 import com.example.library.service.AccountService;
 import com.example.library.service.CustomerService;
@@ -10,8 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,27 +34,29 @@ public class AccountController {
     public String displayRegisterForm(Model model){
         UserDTO user = new UserDTO();
         model.addAttribute("user", user);
-        return "accountController/register-form";
+        return "accountController/register";
     }
 
     @PostMapping("/register")
     public String register(@ModelAttribute("user") @Valid UserDTO user, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()) return "accountController/register-form";
+        if (bindingResult.hasErrors()) return "register";
         try{
             accountService.saveUser(user);
-            model.addAttribute("message", "You have successfully registered. You can now sing in.");
+            model.addAttribute("user", new UserDTO());
+            model.addAttribute("message", "You have successfully registered. You can now sign in.");
+            return  "accountController/register";
         }
         catch (AlreadyExistException e){
-            model.addAttribute("message", "User with that email already exist");
+            model.addAttribute("error", "User with that email already exist");
         }
         catch (PasswordsNotMatchingException e){
             model.addAttribute("matchingPasswordError", "Password not matching");
         }
-        return "accountController/register-form";
+        return "accountController/register";
     }
 
     @GetMapping("/login")
-    public String singinForm(){
+    public String signInForm(){
         return "accountController/login";
     }
 
@@ -70,7 +69,6 @@ public class AccountController {
     @GetMapping("/logoutPage")
     public String logout(){
         customerService.clearCart();
-        customerService.clearBooksBorrowed();
         return "accountController/logout";
     }
 

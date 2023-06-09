@@ -1,6 +1,5 @@
 package com.example.library.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,6 +13,6 @@ public class MainController {
 
     @RequestMapping("/accessDenied")
     public String accessDenied(){
-        return "access-denied";
+        return "exceptionController/access-denied";
     }
 }

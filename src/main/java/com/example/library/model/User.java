@@ -14,16 +14,13 @@ public class User {
     @Enumerated
     @Column(name = "role")
     private UserRole userRole;
-//    @Size(min=2, max = 20)
+
     private String name;
-//    @Size(min=2, max = 30)
+
     private String surname;
 
-//    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-//    @NotEmpty(message = "Email cannot be empty")
     private String email;
 
-//    @ValidPassword
     private String password;
 
     public User() {

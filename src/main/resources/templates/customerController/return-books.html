@@ -15,7 +15,7 @@
 <div class="app-area">
   <h2>Books which you borrowed:</h2>
   <table th:insert="~{fragments/content::basic-book-table(books = ${borrowedBooks})}"></table>
-  <p th:if="${borrowedBooks.isEmpty()}">Cart is empty</p>
+  <p th:if="${borrowedBooks.isEmpty()}">You haven't borrowed any books or all books has been returned.</p>
   <div th:if="${!borrowedBooks.isEmpty()}">
     <h3>Enter book ID to return it:</h3>
     <form th:if="${borrowedBooks}" th:action="@{returnBook}" method="post">

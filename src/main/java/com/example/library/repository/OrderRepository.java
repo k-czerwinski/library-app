@@ -1,8 +1,6 @@
 package com.example.library.repository;
 
-import com.example.library.model.Book;
 import com.example.library.model.Order;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
