@@ -21,6 +21,7 @@ public class BookService {
 
     public void saveBook(Book book) throws AlreadyExistException {
         book.setCurrentBookAmount(book.getTotalBookAmount());
+        //we have to check title, publication year and author in order not to create new entry for same books
         if (bookRepository.existsByTitleAndPublicationYearAndAuthor(book.getTitle(), book.getPublicationYear(), book.getAuthor()))
             throw new AlreadyExistException();
         bookRepository.save(book);
