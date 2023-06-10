@@ -53,7 +53,7 @@ public class CustomerController {
         try {
             customerService.addToCart(bookId);
             model.addAttribute("successMessage", "Book has been successfully added to cart. Please note that books in cart are not reserved");
-        } catch (NoSuchObjectException e) {
+        } catch (NoSuchObjectException | IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
         model.addAttribute("books", bookRepository.findAllByCurrentBookAmountGreaterThan(0, Sort.by(lastSortDirection, lastSortedBy)));
@@ -100,7 +100,7 @@ public class CustomerController {
         try {
             customerService.addToCart(bookId);
             model.addAttribute("successMessage", "Book added to cart successfully");
-        } catch (NoSuchObjectException e) {
+        } catch (NoSuchObjectException | IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
         return "customerController/search-for-book";
