@@ -39,7 +39,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute("user") @Valid UserDTO user, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()) return "register";
+        if (bindingResult.hasErrors()) return "accountController/register";
         try{
             accountService.saveUser(user);
             model.addAttribute("user", new UserDTO());
