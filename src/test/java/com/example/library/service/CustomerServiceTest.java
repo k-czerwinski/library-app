@@ -20,6 +20,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.notNull;
 
+@Tag("UnitTest")
 class CustomerServiceTest {
 
     private final BookRepository bookRepository = Mockito.mock(BookRepository.class);
@@ -101,7 +102,7 @@ class CustomerServiceTest {
 
     @Test
     @DisplayName("Should throw UsernameNotFoundException when user not exist")
-    void confrimOrderShouldThrowExceptionWhenUserNotExist() {
+    void confirmOrderShouldThrowExceptionWhenUserNotExist() {
         String email = "johnsmith@gmail.com";
 
         Exception exception = assertThrows(UsernameNotFoundException.class,() -> underTests.confirmOrder(email));
@@ -122,12 +123,12 @@ class CustomerServiceTest {
         ReflectionTestUtils.setField(underTests,"booksBorrowed", borrowedBooks);
 
         List <Book> result = assertDoesNotThrow(() -> underTests.confirmOrder(email));
-        assertEquals(cartBooks.stream().filter(b -> borrowedBooks.contains(b)).toList(), result);
+        assertEquals(cartBooks.stream().filter(borrowedBooks::contains).toList(), result);
     }
 
     @Test
     @DisplayName("Should succeed when user exists and all books can be proceeded")
-    void confirmOrderShouldSuceed(){
+    void confirmOrderShouldSucceed(){
         String email = "johnsmith@gmail.com";
         User user = new User(UserRole.CUSTOMER,"John","Smith",email,"123Password##");
         List<Book> cartBooks = List.of(new Book(1L, BookGenre.FANTASY, "The Hobbit", 1937, "J.R.R. Tolkien",20,30 ),

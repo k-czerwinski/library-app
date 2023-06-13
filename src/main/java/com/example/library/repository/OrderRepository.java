@@ -11,9 +11,9 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository <Order, Long>{
-    public List<Order> findAllByUserId(Long userId);
+    List<Order> findAllByUserId(Long userId);
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query(value = "UPDATE books_borrowed SET was_returned = 1 where books_borrowed_key = :bookId AND order_id = :orderId", nativeQuery = true)
-    public void updateBorrowedBookStatus(@Param("bookId") Long bookId, @Param("orderId") Long orderId);
+    void updateBorrowedBookStatus(@Param("bookId") Long bookId, @Param("orderId") Long orderId);
 }

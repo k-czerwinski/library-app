@@ -1,15 +1,13 @@
 package com.example.library.model.validation;
 
 import jakarta.validation.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
+@Tag("UnitTest")
 class PasswordConstraintValidatorTest {
     private static PasswordConstraintValidator underTest;
 

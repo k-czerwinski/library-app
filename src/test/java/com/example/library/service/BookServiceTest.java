@@ -8,6 +8,7 @@ import com.example.library.repository.BookRepository;
 import com.sun.jdi.ObjectCollectedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -18,14 +19,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.notNull;
 
+@Tag("UnitTest")
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
 
     @Mock
-    BookRepository bookRepository;
-    BookService underTest;
+    private BookRepository bookRepository;
+    private BookService underTest;
 
     @BeforeEach
     void setUp(){
