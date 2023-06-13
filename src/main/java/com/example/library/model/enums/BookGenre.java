@@ -4,7 +4,7 @@ public enum BookGenre {
     FANTASY("Fantasy"), NONFICTION("Non-fiction"), NOVEL("Novel"), POETRY("Poetry");
 
     private final String displayName;
-    private BookGenre(String displayName){
+    BookGenre(String displayName){
         this.displayName = displayName;
     }
 

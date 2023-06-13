@@ -55,6 +55,16 @@ public class Book {
     public Book() {
     }
 
+    public Book(Long bookId, BookGenre bookGenre, String title, int publicationYear, String author, int currentBookAmount, int totalBookAmount) {
+        this.bookId = bookId;
+        this.bookGenre = bookGenre;
+        this.title = title;
+        this.publicationYear = publicationYear;
+        this.author = author;
+        this.currentBookAmount = currentBookAmount;
+        this.totalBookAmount = totalBookAmount;
+    }
+
     public Long getBookId() {
         return bookId;
     }
